@@ -116,9 +116,7 @@ def validate(df: pd.DataFrame) -> pd.DataFrame:
     if len(bad):
         raise TableError(f"reference differs within a part (item, system): {list(bad.index[:5])}")
     # a reference given on some rows of a part applies to the whole part
-    out["reference"] = out.groupby(PART)["reference"].transform(
-        lambda s: s.dropna().iloc[0] if s.notna().any() else pd.NA
-    )
+    out["reference"] = out.groupby(PART)["reference"].transform("first")
 
     dropped = int(out["verdict"].isna().sum())
     out = out[out["verdict"].notna()].reset_index(drop=True)
