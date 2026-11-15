@@ -76,18 +76,21 @@ def merge_per_fact_objects(text: str) -> dict | None:
         entries = json.loads(text[start : end + 1])
     except json.JSONDecodeError:
         return None
-    ok = (
-        isinstance(entries, list)
-        and entries
-        and all(isinstance(e, dict) and isinstance(e.get("facts"), list) for e in entries)
-    )
-    if not ok:
+    if not isinstance(entries, list) or not entries:
         return None
-    return {
-        "abstained": any(bool(e.get("abstained")) for e in entries),
-        "facts": [f for e in entries for f in e["facts"]],
-        "merged_from_array": True,
-    }
+    if not all(isinstance(e, dict) for e in entries):
+        return None
+    if all(isinstance(e.get("facts"), list) for e in entries):
+        # [{"abstained": .., "facts": [..]}, ...]
+        abstained = any(bool(e.get("abstained")) for e in entries)
+        facts = [f for e in entries for f in e["facts"]]
+    elif all("present" in e for e in entries):
+        # [{"fact": .., "present": ..}, ...] with no "abstained" field. Correctness does not depend
+        # on it: with every fact present the answer committed, and with one absent it is wrong.
+        abstained, facts = False, entries
+    else:
+        return None
+    return {"abstained": abstained, "facts": facts, "merged_from_array": True}
 
 
 def main() -> None:

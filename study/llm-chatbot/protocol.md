@@ -110,3 +110,7 @@ new runs use a different machine and Ollama version from the original ones.
    gradings were re-run with the merge. The share of merged replies is reported per judge: a judge that does not
    follow the reply format is a finding about the measurement system, not something to hide. phi4 and mistral are
    unaffected by the merge unless they produce the same shape.
+   Added the same day, during the re-run: gemma3 also uses a second array shape, a bare list of
+   `{"fact", "present"}` objects with no "abstained" field. It is merged the same way with abstained taken as false,
+   which cannot change the correctness verdict (all facts present means the answer committed; any fact absent means
+   it is wrong either way). The judge's separate "abstained" flag is therefore not analysed for merged gradings.
