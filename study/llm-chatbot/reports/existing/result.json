@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "rows": 675,
+    "parts": 338,
+    "items": 169,
+    "systems": [
+      "v1",
+      "v2"
+    ],
+    "judges": [
+      "mistral-small3.2:24b",
+      "phi4:14b"
+    ],
+    "verdict_values": [
+      "fail",
+      "pass"
+    ],
+    "positive": "pass",
+    "compare": [
+      "v2",
+      "v1"
+    ],
+    "reference_parts": 100,
+    "weighted": true,
+    "dropped": 1,
+    "n_boot": 2000,
+    "seed": 0
+  },
+  "within": [
+    {
+      "judge": "mistral-small3.2:24b",
+      "n_parts": 338,
+      "n_trials": 1,
+      "pct_all_agree": {
+        "not_estimable": "only one trial per part"
+      },
+      "flip_rate": {
+        "not_estimable": "only one trial per part"
+      },
+      "fleiss_kappa": {
+        "not_estimable": "only one trial per part"
+      }
+    },
+    {
+      "judge": "phi4:14b",
+      "n_parts": 337,
+      "n_trials": 1,
+      "pct_all_agree": {
+        "not_estimable": "only one trial per part"
+      },
+      "flip_rate": {
+        "not_estimable": "only one trial per part"
+      },
+      "fleiss_kappa": {
+        "not_estimable": "only one trial per part"
+      }
+    }
+  ],
+  "between": {
+    "n_parts": 337,
+    "pairwise": [
+      {
+        "judge_a": "mistral-small3.2:24b",
+        "judge_b": "phi4:14b",
+        "agreement": 0.913946587537092,
+        "cohen_kappa": 0.8159475696340796
+      }
+    ],
+    "fleiss_kappa": 0.815904231772673,
+    "pct_all_agree": 0.913946587537092
+  },
+  "vs_reference": [
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v1",
+      "n_parts": 50,
+      "agreement": 0.7229136910834523,
+      "cohen_kappa": 0.4396561536845054,
+      "miss_rate": 0.18376068376068377,
+      "false_alarm_rate": 0.3803180060163301
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v2",
+      "n_parts": 50,
+      "agreement": 0.9402162823913487,
+      "cohen_kappa": 0.8283228507344795,
+      "miss_rate": 0.0,
+      "false_alarm_rate": 0.0740834386852086
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v1",
+      "n_parts": 50,
+      "agreement": 0.7484186900632523,
+      "cohen_kappa": 0.49194206814239655,
+      "miss_rate": 0.17249417249417254,
+      "false_alarm_rate": 0.33906317146540615
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v2",
+      "n_parts": 50,
+      "agreement": 0.9283819628647215,
+      "cohen_kappa": 0.7943389781836254,
+      "miss_rate": 0.0306553911205074,
+      "false_alarm_rate": 0.08141592920353982
+    }
+  ],
+  "bias": [
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v1",
+      "n_parts": 50,
+      "judge_score": 0.39073658437053665,
+      "ref_score": 0.47480106100795755,
+      "bias": -0.08406447663742093,
+      "ci_lo": -0.2592017758761919,
+      "ci_hi": 0.08562422300439397
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v2",
+      "n_parts": 50,
+      "judge_score": 0.7471944501122221,
+      "ref_score": 0.8069781677208733,
+      "bias": -0.059783717608651296,
+      "ci_lo": -0.13525896414342628,
+      "ci_hi": -0.011834319526627217
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v1",
+      "n_parts": 50,
+      "judge_score": 0.4044072638237095,
+      "ref_score": 0.47480106100795755,
+      "bias": -0.07039379718424811,
+      "ci_lo": -0.21372499366928335,
+      "ci_hi": 0.0746861145425643
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v2",
+      "n_parts": 50,
+      "judge_score": 0.7471944501122221,
+      "ref_score": 0.8069781677208733,
+      "bias": -0.059783717608651296,
+      "ci_lo": -0.13643945076646602,
+      "ci_hi": -0.010780845162654379
+    }
+  ],
+  "bias_by": {
+    "category": [
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "figure",
+        "n_parts": 2,
+        "judge_score": 1.0,
+        "ref_score": 1.0,
+        "bias": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "multi_page",
+        "n_parts": 2,
+        "judge_score": 0.0,
+        "ref_score": 1.0,
+        "bias": -1.0,
+        "ci_lo": -1.0,
+        "ci_hi": -1.0
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "single_page",
+        "n_parts": 46,
+        "judge_score": 0.6190930787589499,
+        "ref_score": 0.6751789976133653,
+        "bias": -0.05608591885441528,
+        "ci_lo": -0.14579400870953244,
+        "ci_hi": 0.004818242181820712
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "table",
+        "n_parts": 32,
+        "judge_score": 0.4612377850162867,
+        "ref_score": 0.6436482084690555,
+        "bias": -0.18241042345276873,
+        "ci_lo": -0.33807622355218075,
+        "ci_hi": -0.05333925831438456
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "unanswerable",
+        "n_parts": 18,
+        "judge_score": 0.6220115416323165,
+        "ref_score": 0.5610057708161582,
+        "bias": 0.06100577081615829,
+        "ci_lo": -0.2175363215066724,
+        "ci_hi": 0.33333333333333337
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "figure",
+        "n_parts": 2,
+        "judge_score": 0.5,
+        "ref_score": 1.0,
+        "bias": -0.5,
+        "ci_lo": -0.5,
+        "ci_hi": -0.5
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "multi_page",
+        "n_parts": 2,
+        "judge_score": 0.5,
+        "ref_score": 1.0,
+        "bias": -0.5,
+        "ci_lo": -0.5,
+        "ci_hi": -0.5
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "single_page",
+        "n_parts": 46,
+        "judge_score": 0.5568019093078759,
+        "ref_score": 0.6751789976133653,
+        "bias": -0.11837708830548928,
+        "ci_lo": -0.23084814089474287,
+        "ci_hi": -0.04674914417283402
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "table",
+        "n_parts": 32,
+        "judge_score": 0.46221498371335507,
+        "ref_score": 0.6436482084690555,
+        "bias": -0.18143322475570034,
+        "ci_lo": -0.3398649183246245,
+        "ci_hi": -0.06692307692307692
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "unanswerable",
+        "n_parts": 18,
+        "judge_score": 0.7559769167353668,
+        "ref_score": 0.5610057708161582,
+        "bias": 0.19497114591920855,
+        "ci_lo": 0.01581243184296619,
+        "ci_hi": 0.3779884583676834
+      }
+    ],
+    "selected": [
+      {
+        "judge": "mistral-small3.2:24b",
+        "selected": false,
+        "n_parts": 58,
+        "judge_score": 0.5517241379310345,
+        "ref_score": 0.603448275862069,
+        "bias": -0.051724137931034475,
+        "ci_lo": -0.15517241379310343,
+        "ci_hi": 0.05172413793103449
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "selected": true,
+        "n_parts": 42,
+        "judge_score": 0.6904761904761905,
+        "ref_score": 0.9047619047619048,
+        "bias": -0.21428571428571427,
+        "ci_lo": -0.39473684210526316,
+        "ci_hi": -0.04756493506493536
+      },
+      {
+        "judge": "phi4:14b",
+        "selected": false,
+        "n_parts": 58,
+        "judge_score": 0.6034482758620688,
+        "ref_score": 0.603448275862069,
+        "bias": 0.0,
+        "ci_lo": -0.08620689655172416,
+        "ci_hi": 0.08620689655172416
+      },
+      {
+        "judge": "phi4:14b",
+        "selected": true,
+        "n_parts": 42,
+        "judge_score": 0.38095238095238093,
+        "ref_score": 0.9047619047619048,
+        "bias": -0.5238095238095238,
+        "ci_lo": -0.6578947368421053,
+        "ci_hi": -0.375
+      }
+    ]
+  },
+  "components": [
+    {
+      "component": "part",
+      "variance": 0.19137903997108532,
+      "share": 0.8164434663889314
+    },
+    {
+      "component": "judge",
+      "variance": 0.00011006524667823186,
+      "share": 0.00046955012179236206
+    },
+    {
+      "component": "judge_x_part",
+      "variance": 0.04291664098477579,
+      "share": 0.18308698348927618
+    },
+    {
+      "component": "repeatability",
+      "variance": {
+        "not_estimable": "only one trial per part"
+      },
+      "share": {
+        "not_estimable": "only one trial per part"
+      }
+    }
+  ],
+  "grr_share": 0.18355653361106855,
+  "differential_bias": [
+    {
+      "judge": "mistral-small3.2:24b",
+      "diff_bias": 0.02428075902876964,
+      "ci_lo": -0.15690675372372986,
+      "ci_hi": 0.1996837380126498,
+      "n_items": 50
+    },
+    {
+      "judge": "phi4:14b",
+      "diff_bias": 0.010610079575596815,
+      "ci_lo": -0.14569985717200568,
+      "ci_hi": 0.15507039379718424,
+      "n_items": 50
+    }
+  ],
+  "difference": [
+    {
+      "judge": "mistral-small3.2:24b",
+      "score_a": 0.8047337278106509,
+      "score_b": 0.46745562130177515,
+      "diff": 0.33727810650887574,
+      "ci_lo": 0.2544378698224852,
+      "ci_hi": 0.4201183431952663
+    },
+    {
+      "judge": "phi4:14b",
+      "score_a": 0.8047337278106509,
+      "score_b": 0.43452380952380953,
+      "diff": 0.37020991828684136,
+      "ci_lo": 0.29011355986252346,
+      "ci_hi": 0.45672501151543066
+    }
+  ],
+  "difference_spread": 0.032931811777965614,
+  "mrd": [
+    {
+      "judge": "mistral-small3.2:24b",
+      "a": "v2",
+      "b": "v1",
+      "n_items": 169,
+      "n_trials": 1,
+      "diff_observed": 0.33727810650887574,
+      "noise": {
+        "not_estimable": "only one trial per part: judge noise unknown"
+      },
+      "bias_bound": 0.1996837380126498,
+      "mrd": {
+        "not_estimable": "only one trial per part: judge noise unknown"
+      },
+      "diff_bias": 0.02428075902876964,
+      "diff_bias_ci": [
+        -0.15690675372372986,
+        0.1996837380126498
+      ],
+      "notes": [
+        "judge noise unknown: grade each answer more than once to measure it",
+        "bias bound comes from 50 reference items; a larger reference set tightens it, more trials do not"
+      ]
+    },
+    {
+      "judge": "phi4:14b",
+      "a": "v2",
+      "b": "v1",
+      "n_items": 168,
+      "n_trials": 1,
+      "diff_observed": 0.37020991828684136,
+      "noise": {
+        "not_estimable": "only one trial per part: judge noise unknown"
+      },
+      "bias_bound": 0.15507039379718424,
+      "mrd": {
+        "not_estimable": "only one trial per part: judge noise unknown"
+      },
+      "diff_bias": 0.010610079575596815,
+      "diff_bias_ci": [
+        -0.14569985717200568,
+        0.15507039379718424
+      ],
+      "notes": [
+        "judge noise unknown: grade each answer more than once to measure it",
+        "bias bound comes from 50 reference items; a larger reference set tightens it, more trials do not"
+      ]
+    }
+  ],
+  "notes": [
+    "1 row had no verdict and was left out.",
+    "Reference statistics use the sampling weights in the weight column.",
+    "Bias is measured against the reference as given. Errors in the reference shift every judge's bias, and the reference's own repeatability is not measured here unless it was entered as a judge with repeated trials."
+  ]
+}

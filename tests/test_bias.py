@@ -106,3 +106,23 @@ def test_sampling_weights_recover_population_bias():
     unweighted = bias_table(df.drop(columns="weight"), "pass", n_boot=100).iloc[0]["bias"]
     assert weighted == pytest.approx(-0.0333, abs=0.012)
     assert unweighted == pytest.approx(-0.15, abs=0.03)
+
+
+def test_weights_do_not_change_the_judged_difference():
+    df = simulate(600, SYSTEMS, {"j": SPEC}, 1, seed=11)
+    plain = difference_by_judge(df, "pass", "A", "B", n_boot=50).iloc[0]["diff"]
+    df["weight"] = [1.0 if int(i[1:]) % 5 else 9.0 for i in df["item"]]
+    assert difference_by_judge(df, "pass", "A", "B", n_boot=50).iloc[0]["diff"] == plain
+
+
+def test_stratified_resampling_keeps_the_mix():
+    import numpy as np
+
+    from judge_msa.bootstrap import bootstrap_items
+
+    strata = np.array([0] * 10 + [1] * 90)
+    seen = []
+    bootstrap_items(
+        100, lambda i: seen.append(int((i < 10).sum())) or 0.0, n_boot=20, strata=strata
+    )
+    assert set(seen) == {10}

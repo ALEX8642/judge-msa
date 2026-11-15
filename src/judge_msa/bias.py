@@ -28,6 +28,12 @@ def part_means(df: pd.DataFrame, positive: str) -> pd.DataFrame:
     return out
 
 
+def _strata(parts: pd.DataFrame, items: pd.Index) -> np.ndarray | None:
+    """Items that share a sampling weight were sampled together: resample them together."""
+    w = parts.groupby("item")["w"].first().reindex(items).to_numpy()
+    return w if len(np.unique(w)) > 1 else None
+
+
 class _ItemSums:
     """Per-item sums for a subset of parts, aligned to a shared item index, for fast resampling."""
 
@@ -60,6 +66,7 @@ def bias_table(
         return NotEstimable("no reference")
     pm = pm.assign(d=pm["ybar"] - pm["r"])
     items = pd.Index(pm["item"].unique())
+    strata = _strata(pm, items)
     rows = []
     for (judge, group), g in pm.groupby(["judge", by], sort=True):
         s = _ItemSums(g, items, ["ybar", "r", "d"])
@@ -97,6 +104,7 @@ def differential_bias(
         return NotEstimable("no reference")
     pm = pm.assign(d=pm["ybar"] - pm["r"])
     items = pd.Index(pm["item"].unique())
+    strata = _strata(pm, items)
     rows = []
     for judge, g in pm.groupby("judge", sort=True):
         sa = _ItemSums(g[g["system"] == a], items, ["d"])
@@ -109,7 +117,7 @@ def differential_bias(
         def stat(i, sa=sa, sb=sb):
             return sa.mean("d", i) - sb.mean("d", i)
 
-        lo, hi = bootstrap_items(len(items), stat, n_boot=n_boot, seed=seed)
+        lo, hi = bootstrap_items(len(items), stat, n_boot=n_boot, seed=seed, strata=strata)
         rows.append(
             {
                 "judge": judge,
@@ -131,8 +139,11 @@ def difference_by_judge(
     n_boot: int = DEFAULT_N_BOOT,
     seed: int = 0,
 ) -> pd.DataFrame:
-    """score(a) - score(b) as each judge sees it, on all parts. ``attrs['spread']`` = max - min."""
-    pm = part_means(df, positive)
+    """score(a) - score(b) as each judge sees it, on all parts. ``attrs['spread']`` = max - min.
+
+    Sampling weights describe how the reference parts were drawn, so they are not used here.
+    """
+    pm = part_means(df, positive).assign(w=1.0)
     pm = pm[pm["system"].isin([a, b])]
     items = pd.Index(pm["item"].unique())
     rows = []
