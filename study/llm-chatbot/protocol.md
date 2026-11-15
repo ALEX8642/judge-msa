@@ -17,8 +17,9 @@ It is not a re-test of v2 against v1 and it changes no published LLM-chatbot res
   (`evals/results/raw/{v1,v2}-test.json`, `evals/test.jsonl`). These are the answers the blind session showed.
 - **Reference:** the blind human grades of 100 of those answers (50 questions x 2 systems,
   `evals/sessions/blind_grades.jsonl`, key `blind_key.json`). One grader, not a subject expert.
-  A human **pass** is, as in LLM-chatbot's TEST.md: graded "correct" with the cited pages showing it, or a decline on
-  an unanswerable question. "Partly", "wrong", unsupported, and declines on answerable questions are fails.
+  A human **pass** is scored as LLM-chatbot scored it (this reproduces its published 42 of 50 for v2 and 31 of 50
+  for v1): on an answerable question, graded "correct" with the cited pages showing it; on an unanswerable question,
+  a decline. "Partly", "wrong", unsupported, declines on answerable questions and answers to unanswerable ones fail.
 - **The reference sample was not random.** 21 questions were chosen because a judge had rejected or disputed them;
   29 were drawn at random from the remaining 148. Reference-based statistics therefore use sampling weights:
   1 for the 21 chosen questions, 148/29 for the 29 random ones. Unweighted figures are shown beside them, labelled
@@ -97,4 +98,7 @@ new runs use a different machine and Ollama version from the original ones.
 
 ## Deviations
 
-None yet.
+1. 2026-11-15, before any analysis and while arm A was running: the human pass rule was first written as "a decline
+   on an unanswerable question passes, and so does a correct, supported answer on any question". That gave 44 and 35
+   passes, not LLM-chatbot's published 42 and 31. The published scoring fails an *answer* to an unanswerable question
+   even when graded correct; the rule above was corrected to match it. Judge runs are unaffected.
