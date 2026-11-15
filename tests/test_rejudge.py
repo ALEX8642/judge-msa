@@ -76,3 +76,10 @@ def test_merge_leaves_normal_replies_alone():
     assert rejudge.merge_per_fact_objects("no json here") is None
     assert rejudge.merge_per_fact_objects('[{"supported": true}]') is None
     assert rejudge.merge_per_fact_objects("[not json]") is None
+
+
+def test_merge_bare_fact_list():
+    text = '```json\n[{"fact": "a", "present": true}, {"fact": "b", "present": false}]\n```'
+    m = rejudge.merge_per_fact_objects(text)
+    assert [f["present"] for f in m["facts"]] == [True, False]
+    assert m["abstained"] is False
