@@ -71,7 +71,7 @@ def bias_table(
     for (judge, group), g in pm.groupby(["judge", by], sort=True):
         s = _ItemSums(g, items, ["ybar", "r", "d"])
         lo, hi = bootstrap_items(
-            len(items), lambda i, s=s: s.mean("d", i), n_boot=n_boot, seed=seed
+            len(items), lambda i, s=s: s.mean("d", i), n_boot=n_boot, seed=seed, strata=strata
         )
         rows.append(
             {

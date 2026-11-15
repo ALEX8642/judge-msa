@@ -56,3 +56,23 @@ def test_arms_match_protocol():
     assert rejudge.ARMS["A"]["seeds"] == [0, 1, 2] and rejudge.ARMS["A"]["temperature"] == 0.0
     assert rejudge.ARMS["B"]["seeds"] == [1, 2, 3, 4, 5] and rejudge.ARMS["B"]["temperature"] == 0.7
     assert rejudge.ARMS["C"]["shuffle"] and rejudge.ARMS["C"]["reference_only"]
+
+
+def test_merge_per_fact_objects():
+    text = """```json
+[
+  {"abstained": false, "facts": [{"fact": "a", "present": true}]},
+  {"abstained": false, "facts": [{"fact": "b", "present": false}]}
+]
+```"""
+    m = rejudge.merge_per_fact_objects(text)
+    assert [f["present"] for f in m["facts"]] == [True, False]
+    assert m["abstained"] is False and m["merged_from_array"]
+
+
+def test_merge_leaves_normal_replies_alone():
+    one = '{"abstained": false, "facts": [{"fact": "a", "present": true}]}'
+    assert rejudge.merge_per_fact_objects(one) is None
+    assert rejudge.merge_per_fact_objects("no json here") is None
+    assert rejudge.merge_per_fact_objects('[{"supported": true}]') is None
+    assert rejudge.merge_per_fact_objects("[not json]") is None

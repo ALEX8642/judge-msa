@@ -64,6 +64,32 @@ def plan(parts: list[tuple[str, str]], n_trials: int, done: set) -> list[tuple[s
     return todo
 
 
+def merge_per_fact_objects(text: str) -> dict | None:
+    """Some judges answer the key-fact prompt with a JSON *array*, one object per key fact, where
+    the prompt asks for one object holding a list. The content is unambiguous, so it is merged:
+    facts in order, abstained if any entry says so. Returns None when the reply is not that shape.
+    """
+    start, end = text.find("["), text.rfind("]")
+    if start < 0 or end <= start or text.find("{") < start:
+        return None
+    try:
+        entries = json.loads(text[start : end + 1])
+    except json.JSONDecodeError:
+        return None
+    ok = (
+        isinstance(entries, list)
+        and entries
+        and all(isinstance(e, dict) and isinstance(e.get("facts"), list) for e in entries)
+    )
+    if not ok:
+        return None
+    return {
+        "abstained": any(bool(e.get("abstained")) for e in entries),
+        "facts": [f for e in entries for f in e["facts"]],
+        "merged_from_array": True,
+    }
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--llm-chatbot", required=True, type=Path)
@@ -88,6 +114,7 @@ def main() -> None:
 
         temperature = 0.0
         max_tokens_override = 1500  # as in LLM-chatbot's scoring run
+        merged = 0  # replies given as an array of per-fact objects (see merge_per_fact_objects)
 
         def ask(self, prompt: str) -> dict:
             body = {
@@ -107,6 +134,10 @@ def main() -> None:
                     last = repr(e)
                     continue
                 last = r.json()["choices"][0]["message"]["content"] or ""
+                merged = merge_per_fact_objects(last)
+                if merged is not None:
+                    self.merged += 1
+                    return merged
                 parsed = first_json_object(last)
                 if parsed is not None:
                     return parsed
@@ -150,7 +181,7 @@ def main() -> None:
             judge.seed = arm["seeds"][trial]
             source = cited_source(out, item.manual, blocks, pages)
             pages_only = page_source(out, item.manual, pages) if out.get("claims") else None
-            t0 = time.time()
+            t0, merged_before = time.time(), judge.merged
             g = grade_item(item, {**out, "cited_source": source, "page_source": pages_only}, judge)
             rec = {
                 "item": item_id,
@@ -169,6 +200,7 @@ def main() -> None:
                 "judge_error": g["judge_error"],
                 "category": g["category"],
                 "seconds": round(time.time() - t0, 2),
+                "merged_reply": judge.merged > merged_before,
             }
             f.write(json.dumps(rec) + "\n")
             f.flush()

@@ -102,3 +102,11 @@ new runs use a different machine and Ollama version from the original ones.
    on an unanswerable question passes, and so does a correct, supported answer on any question". That gave 44 and 35
    passes, not LLM-chatbot's published 42 and 31. The published scoring fails an *answer* to an unanswerable question
    even when graded correct; the rule above was corrected to match it. Judge runs are unaffected.
+2. 2026-11-15, after the first pass of arms A-C, before any analysis of them: gemma3:27b answered the key-fact prompt
+   with a JSON array of one object per key fact, where the prompt asks for one object holding a list, on about half of
+   its gradings (always the same questions, those with two or more key facts in certain layouts). LLM-chatbot's parser
+   reads only the first object, so these counted as judge errors. The reply's content is unambiguous, so the driver
+   now merges such arrays (`merge_per_fact_objects` in `rejudge.py`) and marks the grading `merged_reply`. The errored
+   gradings were re-run with the merge. The share of merged replies is reported per judge: a judge that does not
+   follow the reply format is a finding about the measurement system, not something to hide. phi4 and mistral are
+   unaffected by the merge unless they produce the same shape.
