@@ -7,7 +7,8 @@ Run with LLM-chatbot importable (it supplies the grader, the prompts and the jud
 
 Arms (see protocol.md): A = temperature 0, seeds 0-2, all answers. B = temperature 0.7, seeds 1-5,
 all answers. C = temperature 0, seed 0, key facts listed in 5 seeded random orders, reference
-answers with at least 2 key facts. The output is append-only JSON lines and the run is resumable:
+answers with at least 2 key facts. D = as A, one trial, with the judge server's context window
+set to 4,096 tokens. The output is append-only JSON lines and the run is resumable:
 gradings already in the file are skipped.
 """
 
@@ -26,6 +27,8 @@ ARMS = {
     "A": {"temperature": 0.0, "seeds": [0, 1, 2], "shuffle": False, "reference_only": False},
     "B": {"temperature": 0.7, "seeds": [1, 2, 3, 4, 5], "shuffle": False, "reference_only": False},
     "C": {"temperature": 0.0, "seeds": [0] * 5, "shuffle": True, "reference_only": True},
+    # D is arm A's first trial again, against a server started with a 4,096-token context window
+    "D": {"temperature": 0.0, "seeds": [0], "shuffle": False, "reference_only": False},
 }
 ORDER_SEED = 20261115
 
