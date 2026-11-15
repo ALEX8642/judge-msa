@@ -12,17 +12,21 @@ from judge_msa.table import PART, NotEstimable
 NO_VARIATION = "no variation: every verdict is the same"
 
 
-def cohen_kappa(a: pd.Series, b: pd.Series) -> float | NotEstimable:
-    """Cohen's kappa for two paired series of labels."""
+def cohen_kappa(
+    a: pd.Series, b: pd.Series, weights: pd.Series | None = None
+) -> float | NotEstimable:
+    """Cohen's kappa for two paired series of labels, optionally with a weight per pair."""
     a, b = a.reset_index(drop=True), b.reset_index(drop=True)
     if len(a) == 0:
         return NotEstimable("no paired verdicts")
+    w = pd.Series(1.0, index=a.index) if weights is None else weights.reset_index(drop=True)
+    w = w / w.sum()
     cats = sorted(set(a) | set(b))
     if len(cats) < 2:
         return NotEstimable(NO_VARIATION)
-    po = float((a == b).mean())
-    pa = a.value_counts(normalize=True).reindex(cats, fill_value=0.0)
-    pb = b.value_counts(normalize=True).reindex(cats, fill_value=0.0)
+    po = float(w[a == b].sum())
+    pa = w.groupby(a).sum().reindex(cats, fill_value=0.0)
+    pb = w.groupby(b).sum().reindex(cats, fill_value=0.0)
     pe = float((pa * pb).sum())
     if pe >= 1.0:
         return NotEstimable(NO_VARIATION)
@@ -122,7 +126,7 @@ def between_judges(df: pd.DataFrame) -> dict | NotEstimable:
     }
 
 
-def _rate(num: int, den: int, what: str) -> float | NotEstimable:
+def _rate(num: float, den: float, what: str) -> float | NotEstimable:
     return num / den if den else NotEstimable(f"no parts where the reference is {what}")
 
 
@@ -132,7 +136,7 @@ def vs_reference(
     """Each judge against the reference: agreement, kappa, miss rate and false-alarm rate.
 
     Miss = the judge passes an answer the reference fails. False alarm = the judge fails an answer
-    the reference passes. Rates are over all trials.
+    the reference passes. Rates are over all trials, weighted by ``weight`` when that column exists.
     """
     d = df[df["reference"].notna()]
     if d.empty:
@@ -141,16 +145,17 @@ def vs_reference(
     rows = []
     for key, g in d.groupby(keys, sort=True):
         key = key if isinstance(key, tuple) else (key,)
+        w = g["weight"].astype(float) if "weight" in g.columns else pd.Series(1.0, index=g.index)
         y = g["verdict"] == positive
         r = g["reference"] == positive
         rows.append(
             dict(zip(keys, key, strict=True))
             | {
                 "n_parts": int(g[PART].drop_duplicates().shape[0]),
-                "agreement": float((g["verdict"] == g["reference"]).mean()),
-                "cohen_kappa": cohen_kappa(g["verdict"], g["reference"]),
-                "miss_rate": _rate(int((y & ~r).sum()), int((~r).sum()), "negative"),
-                "false_alarm_rate": _rate(int((~y & r).sum()), int(r.sum()), "positive"),
+                "agreement": float(w[g["verdict"] == g["reference"]].sum() / w.sum()),
+                "cohen_kappa": cohen_kappa(g["verdict"], g["reference"], w),
+                "miss_rate": _rate(float(w[y & ~r].sum()), float(w[~r].sum()), "negative"),
+                "false_alarm_rate": _rate(float(w[~y & r].sum()), float(w[r].sum()), "positive"),
             }
         )
     cols = {c: object for c in ("cohen_kappa", "miss_rate", "false_alarm_rate")}

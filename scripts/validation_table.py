@@ -6,6 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "tests"))
 
 import test_validation as tv  # noqa: E402
+
 from judge_msa.simulate import JudgeSpec  # noqa: E402
 
 print(f"planted differential bias: {tv.planted_diff_bias():.4f}")

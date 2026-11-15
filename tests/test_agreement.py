@@ -129,3 +129,20 @@ def test_fleiss_matches_statsmodels_for_equal_raters():
     rng = np.random.default_rng(7)
     counts = rng.multinomial(6, [0.5, 0.3, 0.2], size=80)
     assert fleiss_kappa(counts) == pytest.approx(sm_fleiss(counts), abs=1e-12)
+
+
+def test_vs_reference_uses_weights():
+    df = pd.DataFrame(
+        {
+            "item": ["a", "b", "c", "d"],
+            "judge": "j",
+            "trial": 0,
+            "verdict": ["pass", "fail", "pass", "fail"],
+            "reference": ["pass", "pass", "fail", "fail"],
+            "weight": [1.0, 3.0, 1.0, 1.0],
+        }
+    )
+    r = vs_reference(validate(df), "pass").iloc[0]
+    assert r["false_alarm_rate"] == pytest.approx(3 / 4)
+    assert r["miss_rate"] == pytest.approx(1 / 2)
+    assert r["agreement"] == pytest.approx(2 / 6)

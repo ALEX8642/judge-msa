@@ -10,10 +10,16 @@ from judge_msa.table import PART, NotEstimable
 
 
 def part_means(df: pd.DataFrame, positive: str) -> pd.DataFrame:
-    """One row per (item, system, judge): share of trials with the positive verdict, and r."""
+    """One row per (item, system, judge): share of trials with the positive verdict, and r.
+
+    An optional ``weight`` column (constant within a part) carries sampling weights for the
+    reference parts, for when the reference sample was not drawn at random from all parts.
+    """
     d = df.assign(y=(df["verdict"] == positive).astype(float))
+    if "weight" not in d.columns:
+        d = d.assign(weight=1.0)
     out = d.groupby(PART + ["judge"], sort=False).agg(
-        ybar=("y", "mean"), k=("y", "size"), reference=("reference", "first")
+        ybar=("y", "mean"), k=("y", "size"), reference=("reference", "first"), w=("weight", "first")
     )
     out = out.reset_index()
     out["r"] = np.where(
@@ -26,8 +32,10 @@ class _ItemSums:
     """Per-item sums for a subset of parts, aligned to a shared item index, for fast resampling."""
 
     def __init__(self, parts: pd.DataFrame, items: pd.Index, cols: list[str]):
-        g = parts.groupby("item")
-        self.n = g.size().reindex(items, fill_value=0).to_numpy(dtype=float)
+        w = parts["w"] if "w" in parts.columns else pd.Series(1.0, index=parts.index)
+        weighted = parts[cols].mul(w, axis=0).assign(item=parts["item"], w=w)
+        g = weighted.groupby("item")
+        self.n = g["w"].sum().reindex(items, fill_value=0.0).to_numpy(dtype=float)
         self.sums = {c: g[c].sum().reindex(items, fill_value=0.0).to_numpy() for c in cols}
 
     def mean(self, col: str, idx: np.ndarray | slice = slice(None)) -> float:

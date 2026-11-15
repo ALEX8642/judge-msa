@@ -79,3 +79,30 @@ def test_bootstrap_is_fast_enough():
     t0 = time.perf_counter()
     differential_bias(df, "pass", "A", "B")
     assert time.perf_counter() - t0 < 10
+
+
+def _stratified(seed=10):
+    """Population where the judge is biased only on 'hard' items; all hard items are in the
+    reference sample but only 1 in 8 of the others, as when a reference set is enriched."""
+    import numpy as np
+
+    hard = simulate(300, {"A": 0.6}, {"j": JudgeSpec(false_alarm=0.5)}, 1, seed=seed)
+    easy = simulate(2400, {"A": 0.6}, {"j": JudgeSpec()}, 1, seed=seed + 1)
+    easy["item"] = "e" + easy["item"]
+    keep = set(np.random.default_rng(seed).permutation(easy["item"].unique())[:300])
+    easy.loc[~easy["item"].isin(keep), "reference"] = None
+    hard["weight"], easy["weight"] = 1.0, 8.0
+    import pandas as pd
+
+    from judge_msa.table import validate
+
+    return validate(pd.concat([hard, easy]))
+
+
+def test_sampling_weights_recover_population_bias():
+    df = _stratified()
+    # population bias: 300 of 2700 parts carry bias -0.6*0.5 = -0.30 -> -0.0333
+    weighted = bias_table(df, "pass", n_boot=100).iloc[0]["bias"]
+    unweighted = bias_table(df.drop(columns="weight"), "pass", n_boot=100).iloc[0]["bias"]
+    assert weighted == pytest.approx(-0.0333, abs=0.012)
+    assert unweighted == pytest.approx(-0.15, abs=0.03)
