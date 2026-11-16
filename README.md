@@ -20,8 +20,8 @@ reported 38 points ahead of v1 ([full study](study/llm-chatbot/README.md), proto
 - Each judge could resolve a v2 − v1 difference only above **19 to 21 points**, almost all of it from uncertainty about
   bias between the two systems, which more judge runs cannot reduce. The reported lead cleared that; a 10-point lead
   would not have.
-- The judge's known bias against v1 was 44 points on answers picked for being disputed and 2 points on answers drawn
-  at random.
+- The registered judge scored 44 points below the human on answers picked for being disputed, and 2 points below on
+  answers drawn at random. Its "known bias" came from where the reference set was drawn.
 - The judge server's context window, a default nobody had set or recorded, changed verdicts on long inputs.
 
 "The judge ran at temperature 0" is not an answer to any of this:
