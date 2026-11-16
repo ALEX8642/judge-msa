@@ -114,3 +114,19 @@ new runs use a different machine and Ollama version from the original ones.
    `{"fact", "present"}` objects with no "abstained" field. It is merged the same way with abstained taken as false,
    which cannot change the correctness verdict (all facts present means the answer committed; any fact absent means
    it is wrong either way). The judge's separate "abstained" flag is therefore not analysed for merged gradings.
+
+## Results noted against the advance statements (2026-11-15)
+
+- **Arm A, near-perfect repeatability:** held. gemma3 and mistral 100% identical over 3 trials, phi4 99.7%.
+- **Arm C, some verdicts move with key-fact order:** held. 6.9% of the 58 answers changed verdict across 5 orders,
+  for each of the three judges.
+- **Arm D hypothesis, part 1** (at a 4,096-token context, v1's long-source answers fail more often): **did not hold.**
+  On the 23 v1 answers with long sources, passes went from 14 to 11 for mistral but from 9 to 11 for phi4 and from 14
+  to 15 for gemma3. The context window changes verdicts on long sources (3, 2 and 1 of 23), in no consistent
+  direction. It does not explain the judges' harsher treatment of v1.
+- **Arm D hypothesis, part 2** (the 4,096-token run matches the laptop grades better than the 16,384-token run):
+  **held.** On those 23 answers the 4,096-token run reproduces the laptop's verdicts 23 of 23 for both registered
+  judges, against 20 and 21 of 23 at 16,384 tokens. Overall it matches the laptop on 338 of 338 answers for mistral
+  and 332 of 337 for phi4. The original runs therefore very probably used a 4,096-token context, a setting nobody
+  chose or recorded. (To confirm on the laptop when it is next on.)
+- **Same judge, same settings, different machine:** phi4 still differs on 5 of 337 answers with the context matched.
