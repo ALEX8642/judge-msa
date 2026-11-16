@@ -28,7 +28,7 @@ out to move verdicts: the order in which key facts are listed in the prompt, and
 | A: temperature 0, 3 trials, all answers | nothing | 100% identical | 100% | 99.7% |
 | B: temperature 0.7, 5 trials, all answers | sampling | flip rate 0.3% | 3.1% | 6.0% |
 | C: temperature 0, key facts in 5 random orders, 58 answers | presentation | 6.9% of answers change verdict | 6.9% | 6.9% |
-| D: temperature 0, context 4,096 instead of 16,384 tokens | server setting | 1 of 338 verdicts change | 4 | 3 |
+| D: temperature 0, context 4,096 instead of 16,384 tokens | server setting | 1 of 335 verdicts change | 4 of 338 | 3 of 337 |
 
 Flip rate is the chance that two trials of one answer disagree. Reports: [arm A](reports/arm-A/report.md),
 [B](reports/arm-B/report.md), [C](reports/arm-C/report.md), [D](reports/arm-D/report.md),
@@ -82,10 +82,16 @@ JSON shape on 54% of its gradings, which LLM-chatbot's parser reads as an error.
 study merged those replies (protocol deviation 2) and marked them. As delivered, gemma3 with this prompt is not a
 usable judge, however sensible its verdicts are once parsed.
 
+**9. The human reference is repeatable.** The grader blind-regraded 30 of the 100 reference answers a week later
+(new codes, new order, first grades hidden; 9 first-pass and 6 first-fail answers per system). The pass/fail verdict
+was the same on 29 of 30 (kappa 0.93). The finer grade (correct / partly / wrong, pages support it or not) was the
+same on 23 of 30 (kappa 0.63): the reference is dependable as pass/fail and should not be used at finer grain.
+`python reference_repeatability.py --llm-chatbot PATH` reproduces this from `data/regrade_grades.jsonl`.
+
 ## Limits
 
-- One human grader, not a subject expert. His own repeatability is being measured by a blind regrade of 30 answers
-  (not yet in these figures); until then the bias figures rest on a reference of unknown stability.
+- One human grader, not a subject expert. His grades are repeatable (finding 9), which says they are stable, not
+  that an expert would agree with them.
 - 50 reference questions, 29 of them random. That is why the bias bound is wide.
 - Three manuals, one judge prompt, one question set. Nothing here says how these judges behave elsewhere.
 - The new runs used a different machine and Ollama version from the original.

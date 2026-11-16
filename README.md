@@ -23,6 +23,7 @@ reported 38 points ahead of v1 ([full study](study/llm-chatbot/README.md), proto
 - The registered judge scored 44 points below the human on answers picked for being disputed, and 2 points below on
   answers drawn at random. Its "known bias" came from where the reference set was drawn.
 - The judge server's context window, a default nobody had set or recorded, changed verdicts on long inputs.
+- The human reference, regraded blind a week later, gave the same pass/fail verdict on 29 of 30 answers.
 
 "The judge ran at temperature 0" is not an answer to any of this:
 [why not](docs/why-not-just-temperature-zero.md).

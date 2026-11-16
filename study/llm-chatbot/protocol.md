@@ -130,3 +130,5 @@ new runs use a different machine and Ollama version from the original ones.
   and 332 of 337 for phi4. The original runs therefore very probably used a 4,096-token context, a setting nobody
   chose or recorded. (To confirm on the laptop when it is next on.)
 - **Same judge, same settings, different machine:** phi4 still differs on 5 of 337 answers with the context matched.
+- **Reference repeatability** (regrade done 2026-11-15, 30 answers): same pass/fail verdict on 29 of 30, kappa 0.93;
+  same raw grade on 23 of 30, kappa 0.63.
