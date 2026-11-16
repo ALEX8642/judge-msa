@@ -1,0 +1,551 @@
+{
+  "meta": {
+    "rows": 5047,
+    "parts": 338,
+    "items": 169,
+    "systems": [
+      "v1",
+      "v2"
+    ],
+    "judges": [
+      "gemma3:27b",
+      "mistral-small3.2:24b",
+      "phi4:14b"
+    ],
+    "verdict_values": [
+      "fail",
+      "pass"
+    ],
+    "positive": "pass",
+    "compare": [
+      "v2",
+      "v1"
+    ],
+    "reference_parts": 100,
+    "weighted": true,
+    "dropped": 0,
+    "n_boot": 2000,
+    "seed": 0
+  },
+  "within": [
+    {
+      "judge": "gemma3:27b",
+      "n_parts": 336,
+      "n_trials": 5,
+      "pct_all_agree": 0.9940476190476191,
+      "flip_rate": 0.002976190476190476,
+      "fleiss_kappa": 0.9931704694445054
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "n_parts": 338,
+      "n_trials": 5,
+      "pct_all_agree": 0.9408284023668639,
+      "flip_rate": 0.03076923076923077,
+      "fleiss_kappa": 0.9332072672438956
+    },
+    {
+      "judge": "phi4:14b",
+      "n_parts": 337,
+      "n_trials": 5,
+      "pct_all_agree": 0.8931750741839762,
+      "flip_rate": 0.06023738872403561,
+      "fleiss_kappa": 0.8741241197301458
+    }
+  ],
+  "between": {
+    "n_parts": 335,
+    "pairwise": [
+      {
+        "judge_a": "gemma3:27b",
+        "judge_b": "mistral-small3.2:24b",
+        "agreement": 0.9552238805970149,
+        "cohen_kappa": 0.9006504675853615
+      },
+      {
+        "judge_a": "gemma3:27b",
+        "judge_b": "phi4:14b",
+        "agreement": 0.9014925373134328,
+        "cohen_kappa": 0.7884008039046798
+      },
+      {
+        "judge_a": "mistral-small3.2:24b",
+        "judge_b": "phi4:14b",
+        "agreement": 0.8865671641791045,
+        "cohen_kappa": 0.7602184968920699
+      }
+    ],
+    "fleiss_kappa": 0.8147854485607998,
+    "pct_all_agree": 0.8149253731343283
+  },
+  "vs_reference": [
+    {
+      "judge": "gemma3:27b",
+      "system": "v1",
+      "n_parts": 50,
+      "agreement": 0.8169353193225873,
+      "cohen_kappa": 0.6337538871997437,
+      "miss_rate": 0.1952602952602951,
+      "false_alarm_rate": 0.1695745595186936
+    },
+    {
+      "judge": "gemma3:27b",
+      "system": "v2",
+      "n_parts": 50,
+      "agreement": 0.9461334421546624,
+      "cohen_kappa": 0.8403172072962221,
+      "miss_rate": 0.030655391120507396,
+      "false_alarm_rate": 0.059418457648546155
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v1",
+      "n_parts": 50,
+      "agreement": 0.7325035706998572,
+      "cohen_kappa": 0.45957769718016495,
+      "miss_rate": 0.1837606837606836,
+      "false_alarm_rate": 0.3601203266007734
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v2",
+      "n_parts": 50,
+      "agreement": 0.9232809630687615,
+      "cohen_kappa": 0.7860780354027587,
+      "miss_rate": 0.0,
+      "false_alarm_rate": 0.09506953223767382
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v1",
+      "n_parts": 50,
+      "agreement": 0.6909000784832089,
+      "cohen_kappa": 0.37476290736824125,
+      "miss_rate": 0.17655479560998877,
+      "false_alarm_rate": 0.4523420713364847
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v2",
+      "n_parts": 50,
+      "agreement": 0.8847990206080394,
+      "cohen_kappa": 0.6734140140574195,
+      "miss_rate": 0.12452431289640589,
+      "false_alarm_rate": 0.11297092288242729
+    }
+  ],
+  "bias": [
+    {
+      "judge": "gemma3:27b",
+      "system": "v1",
+      "n_parts": 50,
+      "judge_score": 0.49683738012650475,
+      "ref_score": 0.47480106100795755,
+      "bias": 0.022036319118547237,
+      "ci_lo": -0.11011222199551111,
+      "ci_hi": 0.15703529891858803
+    },
+    {
+      "judge": "gemma3:27b",
+      "system": "v2",
+      "n_parts": 50,
+      "judge_score": 0.7649459294021629,
+      "ref_score": 0.8069781677208733,
+      "bias": -0.04203223831871047,
+      "ci_lo": -0.11426239542950418,
+      "ci_hi": 0.005917159763313609
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v1",
+      "n_parts": 50,
+      "judge_score": 0.4003264639869415,
+      "ref_score": 0.47480106100795755,
+      "bias": -0.07447459702101612,
+      "ci_lo": -0.23875331564986732,
+      "ci_hi": 0.09179249132830028
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "system": "v2",
+      "n_parts": 50,
+      "judge_score": 0.7302591307896348,
+      "ref_score": 0.8069781677208733,
+      "bias": -0.07671903693123854,
+      "ci_lo": -0.15668537033258517,
+      "ci_hi": -0.02130177514792899
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v1",
+      "n_parts": 50,
+      "judge_score": 0.3506223219751072,
+      "ref_score": 0.47480106100795755,
+      "bias": -0.12417873903285044,
+      "ci_lo": -0.2777800448887982,
+      "ci_hi": 0.03641603754335843
+    },
+    {
+      "judge": "phi4:14b",
+      "system": "v2",
+      "n_parts": 50,
+      "judge_score": 0.7398490104060397,
+      "ref_score": 0.8069781677208733,
+      "bias": -0.0671291573148337,
+      "ci_lo": -0.15051418077943274,
+      "ci_hi": 0.002734135890634566
+    }
+  ],
+  "bias_by": {
+    "category": [
+      {
+        "judge": "gemma3:27b",
+        "category": "figure",
+        "n_parts": 2,
+        "judge_score": 1.0,
+        "ref_score": 1.0,
+        "bias": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      {
+        "judge": "gemma3:27b",
+        "category": "multi_page",
+        "n_parts": 2,
+        "judge_score": 0.0,
+        "ref_score": 1.0,
+        "bias": -1.0,
+        "ci_lo": -1.0,
+        "ci_hi": -1.0
+      },
+      {
+        "judge": "gemma3:27b",
+        "category": "single_page",
+        "n_parts": 46,
+        "judge_score": 0.64,
+        "ref_score": 0.6751789976133653,
+        "bias": -0.035178997613365154,
+        "ci_lo": -0.12145625697708654,
+        "ci_hi": 0.021094496698255274
+      },
+      {
+        "judge": "gemma3:27b",
+        "category": "table",
+        "n_parts": 32,
+        "judge_score": 0.5245602605863192,
+        "ref_score": 0.6436482084690555,
+        "bias": -0.11908794788273618,
+        "ci_lo": -0.2520696952242618,
+        "ci_hi": -0.0044593514328808564
+      },
+      {
+        "judge": "gemma3:27b",
+        "category": "unanswerable",
+        "n_parts": 18,
+        "judge_score": 0.7559769167353668,
+        "ref_score": 0.5610057708161582,
+        "bias": 0.19497114591920855,
+        "ci_lo": 0.0188556566970091,
+        "ci_hi": 0.38083735909822863
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "figure",
+        "n_parts": 2,
+        "judge_score": 1.0,
+        "ref_score": 1.0,
+        "bias": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "multi_page",
+        "n_parts": 2,
+        "judge_score": 0.0,
+        "ref_score": 1.0,
+        "bias": -1.0,
+        "ci_lo": -1.0,
+        "ci_hi": -1.0
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "single_page",
+        "n_parts": 46,
+        "judge_score": 0.6190930787589499,
+        "ref_score": 0.6751789976133653,
+        "bias": -0.05608591885441528,
+        "ci_lo": -0.1411573100725786,
+        "ci_hi": 1.350522974578601e-20
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "table",
+        "n_parts": 32,
+        "judge_score": 0.4398697068403909,
+        "ref_score": 0.6436482084690555,
+        "bias": -0.20377850162866448,
+        "ci_lo": -0.3859167623311522,
+        "ci_hi": -0.046601868820320524
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "category": "unanswerable",
+        "n_parts": 18,
+        "judge_score": 0.6342126957955482,
+        "ref_score": 0.5610057708161582,
+        "bias": 0.07320692497938995,
+        "ci_lo": -0.18776661968522426,
+        "ci_hi": 0.3333333333333333
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "figure",
+        "n_parts": 2,
+        "judge_score": 0.7,
+        "ref_score": 1.0,
+        "bias": -0.3,
+        "ci_lo": -0.3,
+        "ci_hi": -0.3
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "multi_page",
+        "n_parts": 2,
+        "judge_score": 0.6,
+        "ref_score": 1.0,
+        "bias": -0.4,
+        "ci_lo": -0.4000000000000001,
+        "ci_hi": -0.4
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "single_page",
+        "n_parts": 46,
+        "judge_score": 0.5056801909307878,
+        "ref_score": 0.6751789976133653,
+        "bias": -0.16949880668257758,
+        "ci_lo": -0.2698858437623903,
+        "ci_hi": -0.0894404535794494
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "table",
+        "n_parts": 32,
+        "judge_score": 0.39980456026058636,
+        "ref_score": 0.6436482084690555,
+        "bias": -0.24384364820846907,
+        "ci_lo": -0.39507680954357904,
+        "ci_hi": -0.1087426261331726
+      },
+      {
+        "judge": "phi4:14b",
+        "category": "unanswerable",
+        "n_parts": 18,
+        "judge_score": 0.7925803792250617,
+        "ref_score": 0.5610057708161582,
+        "bias": 0.2315746084089035,
+        "ci_lo": 0.07142857142857142,
+        "ci_hi": 0.4037711313394018
+      }
+    ],
+    "selected": [
+      {
+        "judge": "gemma3:27b",
+        "selected": false,
+        "n_parts": 58,
+        "judge_score": 0.6068965517241378,
+        "ref_score": 0.603448275862069,
+        "bias": 0.003448275862068969,
+        "ci_lo": -0.08275862068965517,
+        "ci_hi": 0.0896551724137931
+      },
+      {
+        "judge": "gemma3:27b",
+        "selected": true,
+        "n_parts": 42,
+        "judge_score": 0.8,
+        "ref_score": 0.9047619047619048,
+        "bias": -0.10476190476190476,
+        "ci_lo": -0.27142857142857146,
+        "ci_hi": 0.0380952380952381
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "selected": false,
+        "n_parts": 58,
+        "judge_score": 0.5448275862068964,
+        "ref_score": 0.603448275862069,
+        "bias": -0.0586206896551724,
+        "ci_lo": -0.16551724137931034,
+        "ci_hi": 0.05172413793103449
+      },
+      {
+        "judge": "mistral-small3.2:24b",
+        "selected": true,
+        "n_parts": 42,
+        "judge_score": 0.7095238095238097,
+        "ref_score": 0.9047619047619048,
+        "bias": -0.1952380952380952,
+        "ci_lo": -0.3523809523809524,
+        "ci_hi": -0.05238095238095238
+      },
+      {
+        "judge": "phi4:14b",
+        "selected": false,
+        "n_parts": 58,
+        "judge_score": 0.5482758620689655,
+        "ref_score": 0.603448275862069,
+        "bias": -0.05517241379310344,
+        "ci_lo": -0.15517241379310345,
+        "ci_hi": 0.048275862068965524
+      },
+      {
+        "judge": "phi4:14b",
+        "selected": true,
+        "n_parts": 42,
+        "judge_score": 0.5238095238095238,
+        "ref_score": 0.9047619047619048,
+        "bias": -0.38095238095238093,
+        "ci_lo": -0.528690476190476,
+        "ci_hi": -0.22380952380952382
+      }
+    ]
+  },
+  "components": [
+    {
+      "component": "part",
+      "variance": 0.1913351536920219,
+      "share": 0.8269219457767332
+    },
+    {
+      "component": "judge",
+      "variance": 0.0013426672607113675,
+      "share": 0.005802807285195996
+    },
+    {
+      "component": "judge_x_part",
+      "variance": 0.022933397601344708,
+      "share": 0.099114717822845
+    },
+    {
+      "component": "repeatability",
+      "variance": 0.015771144278606968,
+      "share": 0.06816052911522583
+    }
+  ],
+  "grr_share": 0.1730780542232668,
+  "differential_bias": [
+    {
+      "judge": "gemma3:27b",
+      "diff_bias": -0.0640685574372577,
+      "ci_lo": -0.2149387880024485,
+      "ci_hi": 0.07851764945929401,
+      "n_items": 50
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "diff_bias": -0.002244439910222412,
+      "ci_lo": -0.17503162619873494,
+      "ci_hi": 0.15978371760865123,
+      "n_items": 50
+    },
+    {
+      "judge": "phi4:14b",
+      "diff_bias": 0.057049581718016745,
+      "ci_lo": -0.11352479085900831,
+      "ci_hi": 0.22261069169557232,
+      "n_items": 50
+    }
+  ],
+  "difference": [
+    {
+      "judge": "gemma3:27b",
+      "score_a": 0.8273809523809523,
+      "score_b": 0.5285714285714286,
+      "diff": 0.29880952380952375,
+      "ci_lo": 0.22023809523809523,
+      "ci_hi": 0.37990268767377194
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "score_a": 0.7988165680473372,
+      "score_b": 0.48165680473372785,
+      "diff": 0.3171597633136094,
+      "ci_lo": 0.23902366863905333,
+      "ci_hi": 0.3976627218934911
+    },
+    {
+      "judge": "phi4:14b",
+      "score_a": 0.7952662721893492,
+      "score_b": 0.40982142857142856,
+      "diff": 0.38544484361792064,
+      "ci_lo": 0.31094005775431405,
+      "ci_hi": 0.46576442344600744
+    }
+  ],
+  "difference_spread": 0.0866353198083969,
+  "mrd": [
+    {
+      "judge": "gemma3:27b",
+      "a": "v2",
+      "b": "v1",
+      "n_items": 168,
+      "n_trials": 5,
+      "diff_observed": 0.29880952380952375,
+      "noise": 0.00368925614467001,
+      "bias_bound": 0.2149387880024485,
+      "mrd": 0.2186280441471185,
+      "diff_bias": -0.0640685574372577,
+      "diff_bias_ci": [
+        -0.2149387880024485,
+        0.07851764945929401
+      ],
+      "notes": [
+        "bias bound comes from 50 reference items; a larger reference set tightens it, more trials do not"
+      ]
+    },
+    {
+      "judge": "mistral-small3.2:24b",
+      "a": "v2",
+      "b": "v1",
+      "n_items": 169,
+      "n_trials": 5,
+      "diff_observed": 0.3171597633136094,
+      "noise": 0.011827094204862488,
+      "bias_bound": 0.17503162619873494,
+      "mrd": 0.18685872040359744,
+      "diff_bias": -0.002244439910222412,
+      "diff_bias_ci": [
+        -0.17503162619873494,
+        0.15978371760865123
+      ],
+      "notes": [
+        "bias bound comes from 50 reference items; a larger reference set tightens it, more trials do not"
+      ]
+    },
+    {
+      "judge": "phi4:14b",
+      "a": "v2",
+      "b": "v1",
+      "n_items": 168,
+      "n_trials": 5,
+      "diff_observed": 0.38544484361792064,
+      "noise": 0.016603714237490828,
+      "bias_bound": 0.22261069169557232,
+      "mrd": 0.23921440593306315,
+      "diff_bias": 0.057049581718016745,
+      "diff_bias_ci": [
+        -0.11352479085900831,
+        0.22261069169557232
+      ],
+      "notes": [
+        "bias bound comes from 50 reference items; a larger reference set tightens it, more trials do not"
+      ]
+    }
+  ],
+  "notes": [
+    "Reference statistics use the sampling weights in the weight column.",
+    "Bias is measured against the reference as given. Errors in the reference shift every judge's bias, and the reference's own repeatability is not measured here unless it was entered as a judge with repeated trials."
+  ]
+}

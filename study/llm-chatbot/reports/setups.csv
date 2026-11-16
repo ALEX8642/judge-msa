@@ -1,0 +1,7 @@
+setup_a,setup_b,judge,system,long_source,answers,same_verdict,pass_a,pass_b
+laptop (existing),"5090, 16k context (arm A)",mistral-small3.2:24b,v1,False,146,145,68,67
+laptop (existing),"5090, 16k context (arm A)",mistral-small3.2:24b,v1,True,23,20,11,14
+laptop (existing),"5090, 16k context (arm A)",mistral-small3.2:24b,v2,False,169,169,136,136
+laptop (existing),"5090, 16k context (arm A)",phi4:14b,v1,False,145,143,62,64
+laptop (existing),"5090, 16k context (arm A)",phi4:14b,v1,True,23,21,11,9
+laptop (existing),"5090, 16k context (arm A)",phi4:14b,v2,False,169,165,136,136
