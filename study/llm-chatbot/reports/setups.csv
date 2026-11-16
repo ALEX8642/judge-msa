@@ -5,3 +5,18 @@ laptop (existing),"5090, 16k context (arm A)",mistral-small3.2:24b,v2,False,169,
 laptop (existing),"5090, 16k context (arm A)",phi4:14b,v1,False,145,143,62,64
 laptop (existing),"5090, 16k context (arm A)",phi4:14b,v1,True,23,21,11,9
 laptop (existing),"5090, 16k context (arm A)",phi4:14b,v2,False,169,165,136,136
+laptop (existing),"5090, 4k context (arm D)",mistral-small3.2:24b,v1,False,146,146,68,68
+laptop (existing),"5090, 4k context (arm D)",mistral-small3.2:24b,v1,True,23,23,11,11
+laptop (existing),"5090, 4k context (arm D)",mistral-small3.2:24b,v2,False,169,169,136,136
+laptop (existing),"5090, 4k context (arm D)",phi4:14b,v1,False,145,144,62,63
+laptop (existing),"5090, 4k context (arm D)",phi4:14b,v1,True,23,23,11,11
+laptop (existing),"5090, 4k context (arm D)",phi4:14b,v2,False,169,165,136,136
+"5090, 16k context (arm A)","5090, 4k context (arm D)",gemma3:27b,v1,False,145,145,75,75
+"5090, 16k context (arm A)","5090, 4k context (arm D)",gemma3:27b,v1,True,23,22,14,15
+"5090, 16k context (arm A)","5090, 4k context (arm D)",gemma3:27b,v2,False,167,167,139,139
+"5090, 16k context (arm A)","5090, 4k context (arm D)",mistral-small3.2:24b,v1,False,146,145,67,68
+"5090, 16k context (arm A)","5090, 4k context (arm D)",mistral-small3.2:24b,v1,True,23,20,14,11
+"5090, 16k context (arm A)","5090, 4k context (arm D)",mistral-small3.2:24b,v2,False,169,169,136,136
+"5090, 16k context (arm A)","5090, 4k context (arm D)",phi4:14b,v1,False,145,144,64,63
+"5090, 16k context (arm A)","5090, 4k context (arm D)",phi4:14b,v1,True,23,21,9,11
+"5090, 16k context (arm A)","5090, 4k context (arm D)",phi4:14b,v2,False,169,169,136,136
