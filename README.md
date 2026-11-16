@@ -10,20 +10,44 @@ judge verdicts and reports, in points, the smallest difference the judge can res
 
 It never calls a model. You bring the verdicts.
 
-## A worked result
+## The short version
 
 Applied to the judges of [LLM-chatbot](https://github.com/ALEX8642/LLM-chatbot), a document-QA project whose v2 was
-reported 38 points ahead of v1 ([full study](study/llm-chatbot/README.md), protocol committed before the runs):
+reported 38 points ahead of v1 ([full study](study/llm-chatbot/README.md), protocol committed before the runs).
+Three judges, 338 answers, 9,996 gradings, one human reference.
 
-- At temperature 0 the judges repeated themselves on 99.7 to 100% of answers. Reordering the key facts in the prompt
-  still changed the verdict on about 7% of answers, for all three judges.
-- Each judge could resolve a v2 − v1 difference only above **19 to 21 points**, almost all of it from uncertainty about
-  bias between the two systems, which more judge runs cannot reduce. The reported lead cleared that; a 10-point lead
-  would not have.
-- The registered judge scored 44 points below the human on answers picked for being disputed, and 2 points below on
-  answers drawn at random. Its "known bias" came from where the reference set was drawn.
-- The judge server's context window, a default nobody had set or recorded, changed verdicts on long inputs.
-- The human reference, regraded blind a week later, gave the same pass/fail verdict on 29 of 30 answers.
+**1. A judge at temperature 0 repeats itself, and still changes its mind when the prompt is rearranged.**
+Sending the same request again changed almost nothing. Listing the same key facts in a different order changed the
+verdict on about 7% of answers, for every judge.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/repeatability-dark.svg">
+  <img src="docs/img/repeatability-light.svg" alt="Share of answers whose verdict changed between trials: near zero for identical requests at temperature 0, up to 10.7% with sampling on, and 6.9% for every judge when the key facts are reordered at temperature 0." width="760">
+</picture>
+
+**2. Each judge could only resolve a difference above 19 to 21 points.** Almost all of that comes from not knowing
+how differently the judge treats the two systems, which more judge runs cannot fix; judge noise was under half a
+point. v2's lead cleared the bar. A 10-point lead would not have, and nothing in the original eval would have said so.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/resolve-dark.svg">
+  <img src="docs/img/resolve-light.svg" alt="For each of three judges, the smallest v2 minus v1 difference it can resolve, about 19 to 21 points, beside the 30 to 37 point difference it reported with its 95% interval." width="760">
+</picture>
+
+**3. The judge's "known bias" came from where the reference set was drawn.** On questions picked because a judge had
+disputed them, the registered judge (phi4) scored 44 points below the human. On questions drawn at random, 2 points
+below.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/bias-dark.svg">
+  <img src="docs/img/bias-light.svg" alt="Judge score minus human score for three judges, on 21 questions picked for being disputed and on 29 drawn at random. phi4: minus 44 points and minus 2 points." width="760">
+</picture>
+
+Also found: the judge server's context window, a default nobody had set or recorded, changed verdicts on long inputs;
+one judge at temperature 0 gave a different verdict on another machine for 5 of 337 answers; and the human
+reference, regraded blind a week later, gave the same pass/fail verdict on 29 of 30 answers.
+
+The charts are drawn from the study's result files by `scripts/readme_charts.py`.
 
 "The judge ran at temperature 0" is not an answer to any of this:
 [why not](docs/why-not-just-temperature-zero.md).

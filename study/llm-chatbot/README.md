@@ -30,6 +30,11 @@ out to move verdicts: the order in which key facts are listed in the prompt, and
 | C: temperature 0, key facts in 5 random orders, 58 answers | presentation | 6.9% of answers change verdict | 6.9% | 6.9% |
 | D: temperature 0, context 4,096 instead of 16,384 tokens | server setting | 1 of 335 verdicts change | 4 of 338 | 3 of 337 |
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../../docs/img/repeatability-dark.svg">
+  <img src="../../docs/img/repeatability-light.svg" alt="Share of answers whose verdict changed between trials, per arm and judge." width="760">
+</picture>
+
 Flip rate is the chance that two trials of one answer disagree. Reports: [arm A](reports/arm-A/report.md),
 [B](reports/arm-B/report.md), [C](reports/arm-C/report.md), [D](reports/arm-D/report.md),
 [the original laptop grades](reports/existing/report.md); the same without sampling weights in
@@ -57,6 +62,11 @@ for 90% of answers (Fleiss' kappa 0.86). Against the human, kappa on v1 answers 
 | mistral-small3.2:24b | +32.5 | 0.0 | 19.4 | 19.4 |
 | phi4:14b | +37.4 | 0.4 | 19.8 | 20.2 |
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../../docs/img/resolve-dark.svg">
+  <img src="../../docs/img/resolve-light.svg" alt="Smallest resolvable v2 minus v1 difference per judge beside the difference it reported." width="760">
+</picture>
+
 Nearly all of it is the bias bound: how different the judge's bias on v2 and on v1 could be, given the reference.
 More judge trials would not shrink it. More randomly drawn reference questions would. v2's lead clears the bar for
 every judge; a difference of 10 or 15 points would not have, and nothing in the original eval would have said so.
@@ -66,6 +76,11 @@ between v2 and v1 is +4.5 points for phi4 (95% interval −12 to +20), +1.8 for 
 bias either way. On the enriched sample taken as it stands, phi4's figure is +20 points (interval +2 to +38), which is
 what triggered LLM-chatbot's judge-validity warning. On the 21 disputed questions phi4 scores 44 points below the
 human; on the 29 random ones, 2 points below. A reference set built from disputed cases shows the judge at its worst.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../../docs/img/bias-dark.svg">
+  <img src="../../docs/img/bias-light.svg" alt="Judge score minus human score on disputed and on randomly drawn reference questions." width="760">
+</picture>
 
 **6. An uncontrolled setting was part of the measurement.** Ollama picks a default context window from the GPU's
 memory. On the 5090 it chose 16,384 tokens. Run again at 4,096 tokens, both registered judges reproduce the original
