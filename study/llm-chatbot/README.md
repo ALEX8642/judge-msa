@@ -85,9 +85,10 @@ human; on the 29 random ones, 2 points below. A reference set built from dispute
 **6. An uncontrolled setting was part of the measurement.** Ollama picks a default context window from the GPU's
 memory. On the 5090 it chose 16,384 tokens. Run again at 4,096 tokens, both registered judges reproduce the original
 laptop verdicts on all 23 answers with long cited sources (20 and 21 of 23 at 16,384), and mistral reproduces all 338
-original verdicts. The original runs therefore very probably used 4,096 tokens, which nobody chose or wrote down, and
+original verdicts. The original runs therefore used 4,096 tokens, which nobody chose or wrote down, and
 which cuts off v1's longest cited pages. The advance guess that this *caused* the bias against v1 did not hold: the
-shorter context changed verdicts in both directions. (The laptop's actual setting is still to be read from it.)
+shorter context changed verdicts in both directions. Read from the laptop afterwards: no context setting, and both
+judges load at 4,096 tokens.
 
 **7. Temperature 0 did not make the judge reproducible across machines.** With the context window matched, phi4 on
 the 5090 still differs from phi4 on the laptop on 5 of 337 answers.

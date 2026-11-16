@@ -128,7 +128,9 @@ new runs use a different machine and Ollama version from the original ones.
   **held.** On those 23 answers the 4,096-token run reproduces the laptop's verdicts 23 of 23 for both registered
   judges, against 20 and 21 of 23 at 16,384 tokens. Overall it matches the laptop on 338 of 338 answers for mistral
   and 332 of 337 for phi4. The original runs therefore very probably used a 4,096-token context, a setting nobody
-  chose or recorded. (To confirm on the laptop when it is next on.)
+  chose or recorded. **Confirmed on the laptop 2026-11-15:** Ollama 0.40.15, no `OLLAMA_CONTEXT_LENGTH` set, and
+  both registered judges load with a 4,096-token context (same model digests as in this study). The laptop's Ollama
+  version at the time of the original runs was not recorded.
 - **Same judge, same settings, different machine:** phi4 still differs on 5 of 337 answers with the context matched.
 - **Reference repeatability** (regrade done 2026-11-15, 30 answers): same pass/fail verdict on 29 of 30, kappa 0.93;
   same raw grade on 23 of 30, kappa 0.63.
